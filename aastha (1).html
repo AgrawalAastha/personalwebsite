@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aastha</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #f7f4ef;
+    --accent1: #d4537e;
+    --accent2: #1D9E75;
+    --accent3: #534AB7;
+    --accent4: #D85A30;
+    --accent5: #BA7517;
+    --muted: #888780;
+    --border: rgba(26,26,26,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: #CECBF6; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--paper);
+    border-bottom: 0.5px solid var(--border);
+    mix-blend-mode: normal;
+  }
+
+  .nav-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding: 8rem 2.5rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-left { position: relative; }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent1);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    line-height: 1.05;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .hero-name .underline-word {
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero-name .underline-word::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent1);
+    transform: skewX(-5deg);
+  }
+
+  .hero-intro {
+    font-size: 1.05rem;
+    color: #444;
+    max-width: 480px;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .hero-intro em {
+    font-style: italic;
+    color: var(--ink);
+    font-family: 'Playfair Display', serif;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 2.5rem;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+
+  .tag-pink { background: #FBEAF0; color: var(--accent1); border: 0.5px solid #F4C0D1; }
+  .tag-green { background: #E1F5EE; color: #085041; border: 0.5px solid #9FE1CB; }
+  .tag-purple { background: #EEEDFE; color: #3C3489; border: 0.5px solid #CECBF6; }
+  .tag-amber { background: #FAEEDA; color: #633806; border: 0.5px solid #FAC775; }
+  .tag-coral { background: #FAECE7; color: #712B13; border: 0.5px solid #F0997B; }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 2px;
+    transition: all 0.2s;
+  }
+
+  .hero-cta:hover { color: var(--accent1); border-color: var(--accent1); }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .floating-card {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .floating-card:hover { transform: translateY(-3px); }
+
+  .floating-card:nth-child(2) { margin-left: 2rem; }
+  .floating-card:nth-child(3) { margin-right: 2rem; }
+
+  .card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-content {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .card-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+  }
+
+  /* SECTIONS */
+  section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    border-bottom: 0.5px solid var(--border);
+    padding-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .section-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-left: auto;
+    max-width: 300px;
+    text-align: right;
+    line-height: 1.5;
+  }
+
+  /* POST MORTEM - ESSAYS */
+  .essays-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .essay-card {
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .essay-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    transition: width 0.25s;
+  }
+
+  .essay-card.pink::before { background: var(--accent1); }
+  .essay-card.green::before { background: var(--accent2); }
+  .essay-card.purple::before { background: var(--accent3); }
+  .essay-card.coral::before { background: var(--accent4); }
+  .essay-card.amber::before { background: var(--accent5); }
+
+  .essay-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+
+  .essay-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .essay-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .essay-excerpt {
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .essay-status {
+    font-size: 0.7rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+  }
+
+  .status-dot.writing { background: var(--accent5); }
+  .status-dot.coming { background: var(--border); }
+
+  /* TINYSHIPS */
+  .ships-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .ship-card {
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    background: white;
+    transition: all 0.2s;
+  }
+
+  .ship-card:hover { transform: translateY(-2px); }
+
+  .ship-week {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .ship-name {
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .ship-desc {
+    font-size: 0.82rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .ship-link {
+    font-size: 0.75rem;
+    color: var(--accent3);
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .ship-link:hover { text-decoration: underline; }
+
+  /* NEWSLETTERS */
+  .newsletters-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .newsletter-card {
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    background: white;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    transition: all 0.2s;
+  }
+
+  .newsletter-card:hover { transform: translateY(-2px); }
+
+  .nl-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .nl-info { flex: 1; }
+
+  .nl-name {
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .nl-tagline {
+    font-size: 0.82rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+
+  .nl-badge {
+    font-size: 0.65rem;
+    font-family: 'DM Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  /* POEMS */
+  .poems-section {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 20px;
+    padding: 4rem;
+    margin: 0 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto 5rem;
+  }
+
+  .poems-section .section-title { color: var(--paper); }
+  .poems-section .section-num { color: rgba(247,244,239,0.4); }
+  .poems-section .section-desc { color: rgba(247,244,239,0.5); }
+  .poems-section .section-header { border-color: rgba(247,244,239,0.15); }
+
+  .poems-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .poem-card {
+    border: 0.5px solid rgba(247,244,239,0.15);
+    border-radius: 12px;
+    padding: 1.75rem;
+    background: rgba(247,244,239,0.05);
+    transition: all 0.2s;
+  }
+
+  .poem-card:hover { background: rgba(247,244,239,0.08); }
+
+  .poem-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--paper);
+  }
+
+  .poem-lines {
+    font-size: 0.88rem;
+    color: rgba(247,244,239,0.7);
+    line-height: 1.9;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .poem-coming {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: rgba(247,244,239,0.35);
+    margin-top: 1rem;
+    display: block;
+  }
+
+  /* AI EXPLORATIONS */
+  .ai-section {
+    background: #EEEDFE;
+    border-radius: 20px;
+    padding: 4rem;
+    max-width: 1100px;
+    margin: 0 auto 5rem;
+  }
+
+  .ai-experiments {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .experiment-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.25rem;
+    border: 0.5px solid #CECBF6;
+  }
+
+  .exp-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: #534AB7;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .exp-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #26215C;
+    line-height: 1.4;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 3rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .footer-name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+  }
+
+  .footer-note {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--ink); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * {
+    animation: fadeUp 0.6s ease forwards;
+    opacity: 0;
+  }
+
+  .hero-tag { animation-delay: 0.1s; }
+  .hero-name { animation-delay: 0.2s; }
+  .hero-intro { animation-delay: 0.3s; }
+  .hero-tags { animation-delay: 0.4s; }
+  .hero-cta { animation-delay: 0.5s; }
+
+  .floating-card {
+    animation: fadeUp 0.6s ease forwards;
+    opacity: 0;
+  }
+
+  .floating-card:nth-child(1) { animation-delay: 0.3s; }
+  .floating-card:nth-child(2) { animation-delay: 0.45s; }
+  .floating-card:nth-child(3) { animation-delay: 0.6s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; gap: 3rem; padding-top: 6rem; }
+    .hero-right { display: none; }
+    .essays-grid, .ships-grid, .newsletters-grid { grid-template-columns: 1fr; }
+    .poems-grid { grid-template-columns: 1fr; }
+    .ai-experiments { grid-template-columns: 1fr; }
+    .poems-section, .ai-section { padding: 2.5rem; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    section { padding: 3rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-name">🐝 Aastha</a>
+  <ul class="nav-links">
+    <li><a href="#essays">Essays</a></li>
+    <li><a href="#ships">What I got done this week</a></li>
+    <li><a href="#ai">AI Explorations</a></li>
+    <li><a href="#poems">Poems</a></li>
+    <li><a href="#newsletters">Newsletters</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <h1 class="hero-name">
+      This is me trying<br>to be a <span class="underline-word">honeybee.</span>
+    </h1>
+    <p class="hero-intro">
+      Francis Bacon talked about three insects.
+      <br><br>
+      The <em>ant</em>, who works hard, looks far, collects whatever tastes interesting and builds a heap of it. The <em>spider</em>, who is skillful and smart and spins elaborate, beautiful webs entirely by herself. And the <em>bee</em> — who gathers what the world has to offer, and transforms it into something sweet and useful for the world.
+      <br><br>
+      I have been an ant for a long, long time. I have sometimes been a spider.
+      <br><br>
+      This is Aastha trying to be a honeybee. Write to me if any of this tastes as sweet and useful to you as it did to me. Tell me if it tastes bitter.
+    </p>
+    <a href="/cdn-cgi/l/email-protection#3e565b5252517e5f5f4d4a565f105d5153" style="display:inline-flex;align-items:center;gap:8px;font-size:0.88rem;font-weight:500;color:var(--paper);background:var(--ink);border:none;border-radius:30px;padding:11px 24px;cursor:pointer;text-decoration:none;margin-top:0.5rem;transition:all 0.2s;" onmouseover="this.style.background='var(--accent1)'" onmouseout="this.style.background='var(--ink)'">Talk to me</a>
+  </div>
+
+  <div class="hero-right">
+    <div class="floating-card">
+      <div class="card-label">Latest essay</div>
+      <div class="card-content">"You are only angry at people you know will not go. If you are not angry, you are scared."</div>
+      <div class="card-dot" style="background: var(--accent1);"></div>
+    </div>
+    <div class="floating-card">
+      <div class="card-label">This week's ship</div>
+      <div class="card-content">FIVE — a Chrome extension that only lets you add 5 tasks. Want more? Complete one first.</div>
+      <div class="card-dot" style="background: var(--accent2);"></div>
+    </div>
+    <div class="floating-card">
+      <div class="card-label">Can AI?</div>
+      <div class="card-content">"AI wrote a Chetan Bhagat novel in 7 minutes. I laughed, I cried, I cringed."</div>
+      <div class="card-dot" style="background: var(--accent3);"></div>
+    </div>
+  </div>
+</div>
+
+<!-- POST MORTEM - ESSAYS -->
+<section id="essays">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Essays</h2>
+    <p class="section-desc">Essays that dissect things everyone thought were already understood.</p>
+  </div>
+
+  <div class="essays-grid">
+    <div class="essay-card pink">
+      <span class="essay-num">PM — 001</span>
+      <div class="essay-title">On Anger as a Relationship Power Indicator</div>
+      <div class="essay-excerpt">You are only angry at people you know will not go. If you are not angry, even when you should be, you are scared. Anger is the pH test of your relationship.</div>
+      <div class="essay-status"><span class="status-dot writing"></span> Writing now</div>
+    </div>
+
+    <div class="essay-card coral">
+      <span class="essay-num">PM — 002</span>
+      <div class="essay-title">Surviving Romeo — The Tragedy of Living</div>
+      <div class="essay-excerpt">Every tragic love story gives us the mercy of mutual death. What does it look like when only one of them survives? What if Juliet died but Romeo didn't?</div>
+      <div class="essay-status"><span class="status-dot writing"></span> Writing now</div>
+    </div>
+
+    <div class="essay-card green">
+      <span class="essay-num">PM — 003</span>
+      <div class="essay-title">The Internet Has a Bua Problem</div>
+      <div class="essay-excerpt">Scroll Instagram for five minutes and count how many reels villainise saas, nanand, bua. Now count the ones about sasur or chacha. Even when we complain about patriarchy, we blame the women.</div>
+      <div class="essay-status"><span class="status-dot coming"></span> Coming soon</div>
+    </div>
+
+    <div class="essay-card purple">
+      <span class="essay-num">PM — 004</span>
+      <div class="essay-title">Moon vs Sun — What Bollywood Songs Say About Women</div>
+      <div class="essay-excerpt">The moon is what men want women to be — beautiful, cool, shining only in someone else's light. The sun is what women actually are. To look at the sun, you need courage.</div>
+      <div class="essay-status"><span class="status-dot coming"></span> Coming soon</div>
+    </div>
+
+    <div class="essay-card amber">
+      <span class="essay-num">PM — 005</span>
+      <div class="essay-title">Why Can't I Put the Romance Novel on My Goodreads?</div>
+      <div class="essay-excerpt">I read romance. I watch romance. But somehow it doesn't count as reading. I am exploring why an unabashedly girly girl has internalized this — and whether you have too.</div>
+      <div class="essay-status"><span class="status-dot coming"></span> Coming soon</div>
+    </div>
+
+    <div class="essay-card pink">
+      <span class="essay-num">PM — 006</span>
+      <div class="essay-title">No Man Has Ever Had Unrequited Love in Mythology</div>
+      <div class="essay-excerpt">Mirabai waited for Kanha. Amba challenged Bhishma. Ram chose his kingdom. The sacrificing man in love is a modern Bollywood invention — not even 30 years old.</div>
+      <div class="essay-status"><span class="status-dot coming"></span> Coming soon</div>
+    </div>
+  </div>
+</section>
+
+<!-- TINYSHIPS -->
+<section id="ships">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">What I got done this week</h2>
+    <p class="section-desc">One small thing shipped every week. No big launches. Just building in public.</p>
+  </div>
+
+  <div class="ships-grid">
+    <div class="ship-card">
+      <span class="ship-week">Week 01</span>
+      <div class="ship-name">FIVE</div>
+      <div class="ship-desc">A Chrome extension that only lets you add 5 tasks. To add a new one, complete an existing one first. Prioritisation by constraint.</div>
+      <a href="#" class="ship-link">Install extension →</a>
+    </div>
+
+    <div class="ship-card" style="opacity: 0.5;">
+      <span class="ship-week">Week 02</span>
+      <div class="ship-name">Slap Bet</div>
+      <div class="ship-desc">Prediction markets for friends. No money. Just consequences. Share a link, make a bet, find out who was right.</div>
+      <span class="ship-link" style="color: var(--muted); cursor: default;">Coming soon</span>
+    </div>
+
+    <div class="ship-card" style="opacity: 0.5;">
+      <span class="ship-week">Week 03</span>
+      <div class="ship-name">The Draft Room</div>
+      <div class="ship-desc">Format-aware writing scaffold. Questions, proven frameworks, and templates organized by what you're actually trying to write.</div>
+      <span class="ship-link" style="color: var(--muted); cursor: default;">Coming soon</span>
+    </div>
+
+    <div class="ship-card" style="opacity: 0.5;">
+      <span class="ship-week">Week 04</span>
+      <div class="ship-name">MUA Directory</div>
+      <div class="ship-desc">A transparent directory of makeup artists by city — with real prices and real quality signals. No more guessing.</div>
+      <span class="ship-link" style="color: var(--muted); cursor: default;">Coming soon</span>
+    </div>
+
+    <div class="ship-card" style="opacity: 0.5;">
+      <span class="ship-week">Week 05</span>
+      <div class="ship-name">This Is a Test</div>
+      <div class="ship-desc">Interactive philosophical dilemmas. The trolley problem, but you actually have to choose. Choose-your-path stories for uncomfortable questions.</div>
+      <span class="ship-link" style="color: var(--muted); cursor: default;">Coming soon</span>
+    </div>
+
+    <div class="ship-card" style="border-style: dashed; display: flex; align-items: center; justify-content: center; min-height: 160px;">
+      <span style="font-size: 0.8rem; color: var(--muted); font-style: italic;">Next week's ship is still being built →</span>
+    </div>
+  </div>
+</section>
+
+<!-- CAN AI? -->
+<div class="ai-section" id="ai">
+  <div class="section-header">
+    <span class="section-num" style="color: #534AB7;">03</span>
+    <h2 class="section-title" style="color: #26215C;">AI Explorations</h2>
+    <p class="section-desc" style="color: #534AB7;">Weekly experiments testing what AI can actually do — with an Indian lens nobody else is using.</p>
+  </div>
+
+  <div class="ai-experiments">
+    <div class="experiment-card">
+      <span class="exp-num">Week 01</span>
+      <div class="exp-title">AI wrote a Chetan Bhagat novel in 7 minutes. I laughed, I cried, I cringed.</div>
+    </div>
+    <div class="experiment-card">
+      <span class="exp-num">Week 02</span>
+      <div class="exp-title">I fed AI every Paul Graham essay. It hacked his brain. Here's what it wrote.</div>
+    </div>
+    <div class="experiment-card">
+      <span class="exp-num">Week 03</span>
+      <div class="exp-title">AI built ₹5L worth of ad creatives in 20 minutes. Insane.</div>
+    </div>
+    <div class="experiment-card">
+      <span class="exp-num">Week 04</span>
+      <div class="exp-title">I built a Reel predictor. It called 8 out of 10 videos correctly.</div>
+    </div>
+    <div class="experiment-card">
+      <span class="exp-num">Week 05</span>
+      <div class="exp-title">AI predicted upcoming Bollywood box office. Chaos ensued.</div>
+    </div>
+    <div class="experiment-card" style="border-style: dashed; display: flex; align-items: center; justify-content: center; min-height: 80px;">
+      <span style="font-size: 0.78rem; color: #AFA9EC; font-style: italic;">New experiment every Friday</span>
+    </div>
+  </div>
+</div>
+
+<!-- POEMS -->
+<div class="poems-section" id="poems">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Poems</h2>
+    <p class="section-desc">Written when nothing else will do.</p>
+  </div>
+
+  <div class="poems-grid">
+    <div class="poem-card">
+      <div class="poem-title">The Sun, Not the Moon</div>
+      <div class="poem-lines">
+        You wanted me to be the moon —<br>
+        cool, beautiful, borrowed light.<br>
+        I was always the sun.<br>
+        You just couldn't look directly.
+      </div>
+    </div>
+
+    <div class="poem-card">
+      <div class="poem-title">Surviving</div>
+      <div class="poem-lines">
+        I have been building things<br>
+        to give my hands something to do<br>
+        while my chest figures out<br>
+        what to do with all this space.
+      </div>
+    </div>
+
+    <div class="poem-card">
+      <div class="poem-title">Draft Unsent</div>
+      <div class="poem-lines">
+        I have written this so many times.<br>
+        Each version, a little less of you.<br>
+        A little more of what I actually meant<br>
+        to say to myself.
+      </div>
+    </div>
+
+    <div class="poem-card" style="display: flex; align-items: center; justify-content: center; min-height: 160px;">
+      <span class="poem-coming">More poems coming — they take their own time.</span>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTERS -->
+<section id="newsletters">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Newsletters</h2>
+    <p class="section-desc">Things I write consistently, because consistency is how you get good.</p>
+  </div>
+
+  <div class="newsletters-grid">
+    <div class="newsletter-card">
+      <div class="nl-icon" style="background: #FAEEDA; color: #633806;">TS</div>
+      <div class="nl-info">
+        <div class="nl-name">Tinyships</div>
+        <div class="nl-tagline">What I shipped this week. 300 words. Honest about what worked and what didn't.</div>
+        <span class="nl-badge" style="background: #EAF3DE; color: #3B6D11;">Weekly · Active</span>
+      </div>
+    </div>
+
+    <div class="newsletter-card">
+      <div class="nl-icon" style="background: #EEEDFE; color: #3C3489;">CA</div>
+      <div class="nl-info">
+        <div class="nl-name">Can AI?</div>
+        <div class="nl-tagline">Weekly AI experiments through an Indian cultural lens. Bollywood, D2C, romance novels, politics.</div>
+        <span class="nl-badge" style="background: #EAF3DE; color: #3B6D11;">Weekly · Active</span>
+      </div>
+    </div>
+
+    <div class="newsletter-card">
+      <div class="nl-icon" style="background: #FBEAF0; color: #72243E;">HR</div>
+      <div class="nl-info">
+        <div class="nl-name">Highlight Reels</div>
+        <div class="nl-tagline">5 films that define an actor — personal, not popular. About how people grow in public.</div>
+        <span class="nl-badge" style="background: #FAEEDA; color: #854F0B;">Biweekly · Starting Month 3</span>
+      </div>
+    </div>
+
+    <div class="newsletter-card">
+      <div class="nl-icon" style="background: #E6F1FB; color: #0C447C;">BC</div>
+      <div class="nl-info">
+        <div class="nl-name">Book Per Century</div>
+        <div class="nl-tagline">One book from each century, read in order. How literature evolved — and what stayed the same.</div>
+        <span class="nl-badge" style="background: #FAEEDA; color: #854F0B;">Monthly · Starting Month 2</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Aastha</div>
+  <div class="footer-note">The only way to truly witness this world is to add to it.</div>
+  <ul class="footer-links">
+    <li><a href="#">LinkedIn</a></li>
+    <li><a href="#">Substack</a></li>
+    <li><a href="#">Instagram</a></li>
+  </ul>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.essay-card, .ship-card, .newsletter-card, .poem-card, .experiment-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transf
